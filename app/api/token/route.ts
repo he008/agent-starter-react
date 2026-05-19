@@ -40,11 +40,11 @@ export async function POST() {
     const raw = await res.json();
     console.log('Received token response:', raw);
 
-    const { server_url, participant_token, nick_name, room_name } = raw.data ?? {};
+    const { server_url, access_token, nick_name, room_name } = raw.data ?? {};
 
     const data = {
       serverUrl: server_url,
-      participantToken: participant_token,
+      participantToken: access_token,
       participantName: nick_name,
       roomName: room_name,
     };
