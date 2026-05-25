@@ -7,6 +7,13 @@ const GRANT_TYPE = process.env.GRANT_TYPE;
 
 export const revalidate = 0;
 
+export async function GET() {
+  return new NextResponse(
+    'This endpoint only accepts POST requests. Use fetch("/api/token", { method: "POST" }) instead.',
+    { status: 405, headers: { 'Content-Type': 'text/plain; charset=utf-8' } },
+  );
+}
+
 export async function POST() {
   if (!AUTH_TOKEN_ENDPOINT) {
     return new NextResponse('AUTH_TOKEN_ENDPOINT is not defined', { status: 500 });
@@ -40,12 +47,13 @@ export async function POST() {
     const raw = await res.json();
     console.log('Received token response:', raw);
 
-    const { server_url, access_token, nick_name, room_name } = raw.data ?? {};
+    const { server_url, participant_token, nick_name, room_name, identity } = raw.data ?? {};
 
     const data = {
       serverUrl: server_url,
-      participantToken: access_token,
-      participantName: nick_name,
+      participantToken: participant_token,
+      identity: identity,
+      nickName: nick_name,
       roomName: room_name,
     };
 
