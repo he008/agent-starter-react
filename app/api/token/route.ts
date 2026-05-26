@@ -23,7 +23,7 @@ export async function POST() {
   }
 
   try {
-    // console.log('Requesting token from endpoint:', AUTH_TOKEN_ENDPOINT);
+    console.log('Requesting token from endpoint:', AUTH_TOKEN_ENDPOINT);
     // console.log('Using client_id:', CLIENT_ID);
     // console.log('Using client_secret:', CLIENT_SECRET); // Do not log the actual secret
     // console.log('Using grant_type:', GRANT_TYPE);
@@ -47,11 +47,11 @@ export async function POST() {
     const raw = await res.json();
     console.log('Received token response:', raw);
 
-    const { server_url, participant_token, nick_name, room_name, identity } = raw.data ?? {};
+    const { server_url, access_token, nick_name, room_name, identity } = raw.data ?? {};
 
     const data = {
       serverUrl: server_url,
-      participantToken: participant_token,
+      participantToken: access_token,
       identity: identity,
       nickName: nick_name,
       roomName: room_name,
